@@ -24,6 +24,22 @@ def get_price_including_tax(article):
     price_with_tax = article.select("tr")
     print(price_with_tax[3].td.text)
 
+
+def get_price_excluding_tax(article):
+    price_without_tax = article.select("tr")
+    print(price_without_tax[2].td.text)
+
+
+def get_number_available(article):
+    number_available = article.select("p")
+    print(number_available[1].text)
+    #TO BE REWORKED
+
+
+def get_category(article):
+    category = article.select("tr")
+    print(category[1].td.text)
+
 if __name__ == "__main__":
     # request va récupérer les données html
     r = requests.get("http://books.toscrape.com/catalogue/how-music-works_979/index.html")
@@ -35,9 +51,9 @@ if __name__ == "__main__":
     get_product_upc(article)
     get_title(article)
     get_price_including_tax(article)
-    #get_price_excluding_tax(article)
-    #get_number_available(article)
+    get_price_excluding_tax(article)
+    get_number_available(article)
     get_product_description(article)
-    #get_category(article)
+    get_category(article)
     #get_review_rating(article)
     #get_image_url(article)
