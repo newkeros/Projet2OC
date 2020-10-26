@@ -32,17 +32,29 @@ def get_price_excluding_tax(article):
 
 def get_number_available(article):
     number_available = article.select("p")
-    print(number_available[1].text)
-    #TO BE REWORKED
+    print(number_available[1].text.strip())
 
 
 def get_category(article):
     category = article.select("tr")
     print(category[1].td.text)
 
+
+def get_review_rating(article):
+    review_rating = article.get("p")
+    print(review_rating)
+    #Pas bon a retravailler
+
+
+def get_image_url(article):
+    get_image = article.find_all("img")[0]
+    print(get_image.get("src"))
+    #A retravailler pour avoir l'url entière
+
 if __name__ == "__main__":
     # request va récupérer les données html
     r = requests.get("http://books.toscrape.com/catalogue/how-music-works_979/index.html")
+    r.encoding = "utf-8"
     # BS va récupérer le texte avec lxml pour parser les infos
     soup = BeautifulSoup(r.text, 'lxml')
     # On cherche ce qu'on veut avec soup.find dans le code html
@@ -55,5 +67,5 @@ if __name__ == "__main__":
     get_number_available(article)
     get_product_description(article)
     get_category(article)
-    #get_review_rating(article)
-    #get_image_url(article)
+    get_review_rating(article)
+    get_image_url(article)
