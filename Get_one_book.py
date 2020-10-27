@@ -41,15 +41,15 @@ def get_category(article):
 
 
 def get_review_rating(article):
-    review_rating = article.get("p")
-    print(review_rating)
+    review_rating = article.find_all('p')[2]
+    print(review_rating.get("class"))
     #Pas bon a retravailler
 
 
 def get_image_url(article):
     get_image = article.find_all("img")[0]
     print(get_image.get("src"))
-    #A retravailler pour avoir l'url entière
+    #A retravailler pour cleaner
 
 if __name__ == "__main__":
     # request va récupérer les données html
