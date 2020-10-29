@@ -1,4 +1,4 @@
-from main import *
+from main import *   #Comment utiliser main sans * main.article.qqchose ?
 
 def get_product_page_url():
     page_url = str('http://books.toscrape.com/catalogue/how-music-works_979/index.html')
@@ -43,7 +43,11 @@ def get_category(article):
 def get_review_rating(article):
     review_rating = article.find_all('p')[2]
     print(review_rating.get("class"))
-    #Pas bon a retravailler
+    # Utiliser methode join() ?
+
+def get_review_rating2(article):
+    review_rating2 = article.select('div')
+    print(review_rating2[6].p)
 
 
 def get_image_url(article):
@@ -59,6 +63,7 @@ if __name__ == "__main__":
     soup = BeautifulSoup(r.text, 'lxml')
     # On cherche ce qu'on veut avec soup.find dans le code html
     article = soup.find('article')
+
     get_product_page_url()
     get_product_upc(article)
     get_title(article)
@@ -69,3 +74,5 @@ if __name__ == "__main__":
     get_category(article)
     get_review_rating(article)
     get_image_url(article)
+    get_review_rating2(article)
+
