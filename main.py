@@ -1,4 +1,39 @@
 from bs4 import BeautifulSoup
 import requests
+from CSV_creator import *
+from Get_one_book import *
 
+if __name__ == "__main__":
+    # request va récupérer les données html
+    r = requests.get("http://books.toscrape.com/catalogue/how-music-works_979/index.html")
+    r.encoding = "utf-8"
+    # BS va récupérer le texte avec lxml pour parser les infos
+    soup = BeautifulSoup(r.text, 'lxml')
+    # On cherche ce qu'on veut avec soup.find dans le code html
+    article = soup.find('article')
 
+    get_product_page_url()
+    get_product_upc(article)
+    get_title(article)
+    get_price_including_tax(article)
+    get_price_excluding_tax(article)
+    get_number_available(article)
+    get_product_description(article)
+    get_category(article)
+    get_review_rating(article)
+    get_image_url(article)
+    #create_csv(article)
+
+    #ici ces fonctions disparaissent et il n'y aura que get product qui retourne un dico
+
+    def get_all_product_infos():
+        product_infos = {}
+        product_infos["product_page_url"] = get_product_page_url()
+        product_infos["product_upc"] = get_product_upc(article)
+        product_infos["title"] = get_title(article)
+        product_infos["price_including_tax"] = get_price_including_tax(article)
+        product_infos["price_excluding_tax"] = get_price_excluding_tax(article)
+        product_infos["number_available"]
+        print(product_infos)
+
+    get_all_product_infos()
