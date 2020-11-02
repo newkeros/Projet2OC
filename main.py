@@ -1,3 +1,5 @@
+from csv import DictWriter
+
 from bs4 import BeautifulSoup
 import requests
 from CSV_creator import *
@@ -22,9 +24,9 @@ if __name__ == "__main__":
     get_category(article)
     get_review_rating(article)
     get_image_url(article)
-    #create_csv(article)
 
-    #ici ces fonctions disparaissent et il n'y aura que get product qui retourne un dico
+
+    # ici ces fonctions disparaissent et il n'y aura que get product qui retourne un dico
 
     def get_all_product_infos():
         product_infos = {}
@@ -38,6 +40,17 @@ if __name__ == "__main__":
         product_infos["category"] = get_category(article)
         product_infos["review_rating"] = get_review_rating(article)
         product_infos["image_url"] = get_image_url(article)
-        return(product_infos)
+        return (product_infos)
 
-    get_all_product_infos()
+
+    def create_csv():
+        with open('testproject01.csv', 'a', newline='') as f:
+            fieldnames = ["product_page_url", "product_upc", "title"]
+            csv_writer = DictWriter(f, fieldnames=fieldnames)
+            csv_writer.writeheader()
+            csv_writer.writerow({"product_page_url": get_product_page_url()})
+            csv_writer.writerow({"product_upc": get_product_upc(article)})
+            csv_writer.writerow({"title": get_title(article)})
+
+
+    create_csv()

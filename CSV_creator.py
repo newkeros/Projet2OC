@@ -1,9 +1,6 @@
 from main import *
+from csv import DictWriter
 
-def create_csv():
-    with open('projet2.csv', 'w') as P2_test:
-        csv_writer = csv.Dictwriter(P2_test, delimiter='')
-        csv_writer.writerow(get_all_product_infos())
 
 
 #récupérer le dictionnaire ici qui permet de créer le create_csv
