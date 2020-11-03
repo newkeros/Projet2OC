@@ -40,17 +40,18 @@ if __name__ == "__main__":
         product_infos["category"] = get_category(article)
         product_infos["review_rating"] = get_review_rating(article)
         product_infos["image_url"] = get_image_url(article)
-        return (product_infos)
+        return(product_infos)
 
 
     def create_csv():
         with open('testproject01.csv', 'a', newline='') as f:
-            fieldnames = ["product_page_url", "product_upc", "title"]
+            all_data = get_all_product_infos()
+            fieldnames = ["product_page_url", "product_upc", "title", "price_including_tax", "price_excluding_tax",
+                          "number_available", "product_description", "category", "review_rating", "image_url"]
             csv_writer = DictWriter(f, fieldnames=fieldnames)
             csv_writer.writeheader()
-            csv_writer.writerow({"product_page_url": get_product_page_url()})
-            csv_writer.writerow({"product_upc": get_product_upc(article)})
-            csv_writer.writerow({"title": get_title(article)})
+            csv_writer.writerow(all_data)
+
 
 
     create_csv()
