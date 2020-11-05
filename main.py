@@ -1,32 +1,16 @@
-from csv import DictWriter
-
 from bs4 import BeautifulSoup
 import requests
-from CSV_creator import *
+from csv import DictWriter
 from Get_one_book import *
 
 if __name__ == "__main__":
     # request va récupérer les données html
-    r = requests.get("http://books.toscrape.com/catalogue/how-music-works_979/index.html")
-    r.encoding = "utf-8"
+    response = requests.get("http://books.toscrape.com/catalogue/how-music-works_979/index.html")
+    response.encoding = "utf-8"
     # BS va récupérer le texte avec lxml pour parser les infos
-    soup = BeautifulSoup(r.text, 'lxml')
+    soup = BeautifulSoup(response.text, 'lxml')
     # On cherche ce qu'on veut avec soup.find dans le code html
     article = soup.find('article')
-
-    get_product_page_url()
-    get_product_upc(article)
-    get_title(article)
-    get_price_including_tax(article)
-    get_price_excluding_tax(article)
-    get_number_available(article)
-    get_product_description(article)
-    get_category(article)
-    get_review_rating(article)
-    get_image_url(article)
-
-
-    # ici ces fonctions disparaissent et il n'y aura que get product qui retourne un dico
 
     def get_all_product_infos():
         product_infos = {}
@@ -40,11 +24,10 @@ if __name__ == "__main__":
         product_infos["category"] = get_category(article)
         product_infos["review_rating"] = get_review_rating(article)
         product_infos["image_url"] = get_image_url(article)
-        return(product_infos)
-
+        return (product_infos)
 
     def create_csv():
-        with open('testproject01.csv', 'a', newline='') as f:
+        with open('testproject01.csv', 'w', newline='') as f:
             all_data = get_all_product_infos()
             fieldnames = ["product_page_url", "product_upc", "title", "price_including_tax", "price_excluding_tax",
                           "number_available", "product_description", "category", "review_rating", "image_url"]
@@ -53,5 +36,18 @@ if __name__ == "__main__":
             csv_writer.writerow(all_data)
 
 
+    #def get_all_category_infos
+    #    with open('testproject01.csv', 'r') as csv_file:
+    #        for row in csv_file:
+    #            url = row.strip()
+    #            response = requests.get(url)
+    #                if response.ok:
+    #                    soup = BeautifulSoup(response.text, 'lxml')
+    #                   all_category_data = soup.find(get_all_product_infos())
+
+
+
 
     create_csv()
+
+
