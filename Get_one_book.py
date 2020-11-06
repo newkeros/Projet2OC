@@ -30,7 +30,7 @@ def get_price_excluding_tax(article):
 
 def get_number_available(article):
     number_available = article.select("p")
-    return(number_available[1].text.strip())
+    return(number_available[1].text.strip().strip(' Instock)available('))
 
 
 def get_category(article):
@@ -45,8 +45,22 @@ def get_review_rating(article):
 
 def get_image_url(article):
     get_image = article.find_all("img")[0]
-    return(get_image.get("src"))
-    #A retravailler pour cleaner
+    return(get_image.get("src").replace('../../', 'http://books.toscrape.com/'))
+
+
+def get_all_product_infos():
+    product_infos = {}
+    product_infos["product_page_url"] = get_product_page_url()
+    product_infos["product_upc"] = get_product_upc(article)
+    product_infos["title"] = get_title(article)
+    product_infos["price_including_tax"] = get_price_including_tax(article)
+    product_infos["price_excluding_tax"] = get_price_excluding_tax(article)
+    product_infos["number_available"] = get_number_available(article)
+    product_infos["product_description"] = get_product_description(article)
+    product_infos["category"] = get_category(article)
+    product_infos["review_rating"] = get_review_rating(article)
+    product_infos["image_url"] = get_image_url(article)
+    return (product_infos)
 
 
 
