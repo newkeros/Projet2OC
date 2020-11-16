@@ -1,42 +1,23 @@
 from bs4 import BeautifulSoup
 import requests
 
-def category_book_loop():
-    for i in range(5):  #la liste cherche à partir de 0, on a 4 pages à scraper
-        categories_url = []  #On crée la liste
-        url = "https://books.toscrape.com/catalogue/category/books/sequential-art_5/page-" + str(i) + ".html"
-        response = requests.get(url)
-        print(response)
-        if response.ok:  #considérée réponse ok = 200
-            print('page : ' + str(i))
-            soup = BeautifulSoup(response.text, 'lxml')
-            all_h3 = soup.find_all('h3')
-            for h3 in all_h3:
-                a = h3.find('a')
-                link = a['href']
-                categories_url.append('https://books.toscrape.com/catalogue' + link)
-    print(len(categories_url))
+#ul class pager, li class next et il y a le lien dedans
 
 
-    #with open('sequential_art_cat_links.txt', 'w') as file:
-        #for link in categories_url:
-            #file.write(link + '\n')
-
-
-
-
-
-
-"""def get_category_book(category_url):
+def get_category_book(category_url):
     response = requests.get(category_url)
     response.encoding = "utf-8"
     soup = BeautifulSoup(response.text, 'lxml')
-    article = soup.find('article')
-    categories_url = list()
+    category_url = list()
     for link in soup.find_all('h3'):
-        categories_url.append(link.a.attrs['href'].replace('../../../', 'http://books.toscrape.com/catalogue/'))
+        category_url.append(link.a.attrs['href'].replace('../../../', 'http://books.toscrape.com/catalogue/'))
+    print(category_url)
 
-    print(categories_url)"""
+
+get_category_book("https://books.toscrape.com/catalogue/category/books/sequential-art_5/")
+
+def get_category_books():
+
 
 
 #tant que next existe chercher els infos avec url
