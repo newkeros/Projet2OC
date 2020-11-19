@@ -14,9 +14,23 @@ def get_category_book(category_url):
     print(category_url)
 
 
-get_category_book("https://books.toscrape.com/catalogue/category/books/sequential-art_5/")
+#get_category_book("https://books.toscrape.com/catalogue/category/books/sequential-art_5/")
 
-def get_category_books():
+def get_category_books(category_url):
+    response = requests.get(category_url)
+    response.encoding = "utf-8"
+    soup = BeautifulSoup(response.text, 'lxml')
+    category_url = list()
+    for next_button in soup.find_all("li"):
+        category_url.append(next_button.a.href.replace('../../../', 'http://books.toscrape.com/catalogue/'))
+        print(category_url)
+
+
+get_category_books("https://books.toscrape.com/catalogue/category/books/sequential-art_5/")
+
+    #Dans cette boucle soup.find.all('h3)
+
+
 
 
 
