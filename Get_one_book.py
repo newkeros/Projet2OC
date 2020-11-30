@@ -1,6 +1,4 @@
-def get_product_page_url():
-    page_url = str('http://books.toscrape.com/catalogue/how-music-works_979/index.html')
-    return(page_url)
+from Request import request
 
 
 def get_title(article):
@@ -48,9 +46,11 @@ def get_image_url(article):
     return(get_image.get("src").replace('../../', 'http://books.toscrape.com/'))
 
 
-def get_all_product_infos():
-    product_infos = {}
-    product_infos["product_page_url"] = get_product_page_url()
+def get_all_product_infos(url):
+    product_infos = dict()
+    soup = request(url)
+    article = soup.find('article')
+    product_infos["product_page_url"] = url
     product_infos["product_upc"] = get_product_upc(article)
     product_infos["title"] = get_title(article)
     product_infos["price_including_tax"] = get_price_including_tax(article)
@@ -60,7 +60,7 @@ def get_all_product_infos():
     product_infos["category"] = get_category(article)
     product_infos["review_rating"] = get_review_rating(article)
     product_infos["image_url"] = get_image_url(article)
-    return (product_infos)
+    return product_infos
 
 
 

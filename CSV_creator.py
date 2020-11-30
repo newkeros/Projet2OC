@@ -1,13 +1,15 @@
 # File for creating csv file
+import csv
+from pathlib import Path
 
-from Get_one_book import *
-from csv import DictWriter
 
-def create_csv():
-    with open('testproject01.csv', 'a', newline='') as f:
-        all_data = get_all_product_infos()
-        fieldnames = ["product_page_url", "product_upc", "title", "price_including_tax", "price_excluding_tax",
-                      "number_available", "product_description", "category", "review_rating", "image_url"]
-        csv_writer = DictWriter(f, fieldnames=fieldnames)
-        csv_writer.writeheader()
-        csv_writer.writerow(all_data)
+
+def create_csv(product, category_name):
+    path = Path(".")/category_name
+    path.mkdir(parents=True, exist_ok=True)
+    filepath = path/(category_name + ".csv")
+    with filepath.open('a', newline='', encoding="utf-8") as f:
+        csv_writer = csv.DictWriter(f, fieldnames=product.keys(), delimiter=",")
+        if filepath.stat().st_size == 0:
+            csv_writer.writeheader()
+        csv_writer.writerow(product)

@@ -2,13 +2,13 @@ from bs4 import BeautifulSoup
 import requests
 
 def category_book_loop():
-    for i in range(5):  # la liste cherche à partir de 0, on a 4 pages à scraper
+    for i in range(1, 5):  # la liste cherche à partir de 0, on a 4 pages à scraper
         url = "https://books.toscrape.com/catalogue/category/books/sequential-art_5/page-" + str(i) + ".html"
         response = requests.get(url)
-        print(response)
-        while response.ok:  # considérée réponse ok = 200
+        print(i)
+        while response.ok:
+            # considérée réponse ok = 200
             print('page : ' + str(i))
-
             break
         soup = BeautifulSoup(response.text, 'lxml')
         all_h3 = soup.find_all('h3')
@@ -16,7 +16,7 @@ def category_book_loop():
         for h3 in all_h3:
             a = h3.find('a')
             link = a['href']
-            categories_url.append('https://books.toscrape.com/catalogue' + link)
+            categories_url.append('https://books.toscrape.com/catalogue/' + link.strip("../../.."))
     print(categories_url)
 
     with open('sequential_art_cat_links.txt', 'w') as file:
