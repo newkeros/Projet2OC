@@ -1,3 +1,5 @@
+# File to get all books url from a category
+
 from bs4 import BeautifulSoup
 import requests
 
@@ -17,36 +19,12 @@ def get_category_books(category_url):
         category_url = base_url + "page-" + str(i) + ".html"
     print(books_urls)
 
-#autre fonction qui va appeler à partir de la liste get_Category_books
-#créer un csv par category
-#utiliser module OS pour créer les dossiers dans lequel il ya aura les urls en csv + dossier images
-#dans un dossier data qui contiendra les dossiers de toutes les catégories
-#fonction create folder + creer folder au nom de la catégorie
-#dans la fonction csv mettre focntion telecharchement images
-
 get_category_books("https://books.toscrape.com/catalogue/category/books/sequential-art_5/index.html")
 
-"""def get_category_books(category_url):
-    response = requests.get(category_url)
-    response.encoding = "utf-8"
-    soup = BeautifulSoup(response.text, 'lxml')
-    category_url = list()
-    for next_button in soup.find_all("li"):
-        category_url.append(next_button.a.href.replace('../../../', 'http://books.toscrape.com/catalogue/'))
-        print(category_url)"""
-
-
-#get_category_books("https://books.toscrape.com/catalogue/category/books/sequential-art_5/")
-
-    #Dans cette boucle soup.find.all('h3)
 
 
 
 
-
-#tant que next existe chercher els infos avec url
-#créer dossier pour chaque catégorie bibli os ?
-#dossier dedans avec image où on met l'ensemble des images des livres
 
 
 
