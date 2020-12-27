@@ -1,11 +1,8 @@
-from bs4 import BeautifulSoup
-import requests
-from csv import DictWriter
 from parserbook import get_all_product_infos
 from Get_category_books import *
 from CSV_creator import create_csv
 from Pictures import get_picture
-from Request import request
+
 
 
 
@@ -15,8 +12,9 @@ if __name__ == "__main__":
     for urls in category_url_list:
         category_dict = get_all_product_infos(urls)
         create_csv(category_dict, "Sequential art")
-        all_pictures = category_dict["image_url"]
-        get_picture(all_pictures)
+        get_picture(category_dict)
+
+
 
 
 

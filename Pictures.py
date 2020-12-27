@@ -1,9 +1,10 @@
 import requests
+from parserbook import get_all_product_infos
 
 
-def get_picture(dico_key):
-    response = requests.get(dico_key["image_url"])
+def get_picture(category_dict):
+    response = requests.get(category_dict["image_url"])
 
-    with open(category_dict["title"], "wb") as file:
+    with open(category_dict["image_filename"], "wb") as file:
         file.write(response.content)
-    print(response)
+        return category_dict

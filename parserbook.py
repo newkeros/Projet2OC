@@ -61,4 +61,5 @@ def get_all_product_infos(url):
     product_infos["category"] = get_category(article)
     product_infos["review_rating"] = get_review_rating(article)
     product_infos["image_url"] = get_image_url(article)
+    product_infos["image_filename"] = get_image_filename()   # creer la foncrtio
     return product_infos

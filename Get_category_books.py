@@ -17,9 +17,10 @@ def get_category_books(category_url):
         next_flag = soup.find("li", {"class": "next"}) is not None
         i += 1
         category_url = base_url + "page-" + str(i) + ".html"
-    print(books_urls)
+    return books_urls
 
-get_category_books("https://books.toscrape.com/catalogue/category/books/sequential-art_5/index.html")
+
+
 
 
 
